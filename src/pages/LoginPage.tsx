@@ -1,7 +1,7 @@
 import { TextField, Button, Grid, Typography, Paper, Link } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { FormValues } from '../../types';
+import { FormValues } from './types';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import * as Yup from 'yup';

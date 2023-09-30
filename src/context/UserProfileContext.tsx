@@ -6,7 +6,7 @@ import {
   ReactNode,
 } from "react";
 import axios from "axios";
-import { DataProfile, UserProfileContextType } from "../types";
+import { DataProfile, UserProfileContextType } from "../pages/types";
 
 const UserProfileContext = createContext<UserProfileContextType | undefined>(
   undefined

@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { useEffect, useState, useCallback } from "react";
-import { FetchListResult } from "../types";
+import { FetchListResult } from "../pages/types";
 
 const useFetchList = <T>(options: AxiosRequestConfig): FetchListResult<T> => {
   const [data, setData] = useState<T | null>(null);

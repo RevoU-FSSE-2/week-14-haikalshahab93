@@ -3,11 +3,11 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { useFetchList } from '../../hooks';
+import { useFetchList } from '../hooks';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, MenuItem, Container, Paper, Typography } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Category } from '../../types';
-import { useUserProfile } from '../../context/UserProfileContext';
+import { Category } from './types';
+import { useUserProfile } from '../context/UserProfileContext';
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
@@ -25,6 +25,8 @@ const DashboardPage: React.FC = () => {
     const [editedRow, setEditedRow] = useState<Category | null>(null);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [rowToDelete, setRowToDelete] = useState<Category | null>(null);
+    const [show, setShow] = useState<boolean>(false);
+
 
     const { userProfile } = useUserProfile();
 
@@ -380,24 +382,42 @@ const DashboardPage: React.FC = () => {
                 </Paper>
             </Container>
 
-            {/* Grid table data */}
-            <div data-testid="categoryTable" style={{ height: 400, width: '100%' }}>
-                {data ? (
-                    <DataGrid
-                        rows={data}
-                        columns={columns}
-                        initialState={{
-                            pagination: {
-                                paginationModel: { page: 0, pageSize: 5 },
-                            },
-                        }}
-                        style={{ backgroundColor: '#fff' }}
-                        pageSizeOptions={[5, 10]}
-                    />
-                ) : (
-                    <div>No data available.</div>
+            <Button
+                variant="contained"
+                className='mb-3'
+                color={!show ? "warning" : "success"}
+                size="small"
+                style={{ marginLeft: 10 }}
+                onClick={() => !show ? setShow(true) : setShow(false)}
+            >
+                {!show ? "Hide" : "Show"}
+            </Button>
+
+
+            {show ? "" :
+                (
+                    <div className="bg-warning">
+                        <div data-testid="categoryTable" style={{ height: 400, width: '100%' }}>
+                            {data ? (
+                                <DataGrid
+                                    rows={data}
+                                    columns={columns}
+                                    initialState={{
+                                        pagination: {
+                                            paginationModel: { page: 0, pageSize: 5 },
+                                        },
+                                    }}
+                                    style={{ backgroundColor: '#fff' }}
+                                    pageSizeOptions={[5, 10]}
+                                />
+                            ) : (
+                                <div>No data available.</div>
+                            )}
+                        </div>
+                    </div>
                 )}
-            </div>
+            {/* Grid table data */}
+
         </>
     );
 };
