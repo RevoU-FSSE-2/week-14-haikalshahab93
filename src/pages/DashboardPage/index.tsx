@@ -379,7 +379,6 @@ const DashboardPage: React.FC = () => {
                     </Button>
                 </Paper>
             </Container>
-            
 
             {/* Grid table data */}
             <div data-testid="categoryTable" style={{ height: 400, width: '100%' }}>
@@ -399,8 +398,6 @@ const DashboardPage: React.FC = () => {
                     <div>No data available.</div>
                 )}
             </div>
-
-            
         </>
     );
 };
