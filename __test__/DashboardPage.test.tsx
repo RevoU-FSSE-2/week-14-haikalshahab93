@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import {DashboardPage} from '../src/pages';
+import DashboardPage from '../src/pages/DashboardPage';
 import axios from 'axios';
 import { UserProfileProvider } from '../src/context/UserProfileContext';
 import { act } from 'react-dom/test-utils';
