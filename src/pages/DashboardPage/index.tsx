@@ -25,8 +25,6 @@ const DashboardPage: React.FC = () => {
     const [editedRow, setEditedRow] = useState<Category | null>(null);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [rowToDelete, setRowToDelete] = useState<Category | null>(null);
-    const [show, setShow] = useState<boolean>(false)
-
 
     const { userProfile } = useUserProfile();
 
@@ -346,17 +344,15 @@ const DashboardPage: React.FC = () => {
             </Dialog >
 
             {/* Profile Data */}
-            
             <Container
                 sx={{
                     width: "100%",
                     height: 250,
                 }}
             >
-                {/* Profile Data */}
-                <Paper elevation={3} style={{ padding: '20px' }} className={!show ? "bg-success text-white" : "bg-warning"}>
+                <Paper elevation={3} style={{ padding: '20px' }}>
                     <Typography variant="h6" gutterBottom>
-                        User Profile
+                        Profile Data
                     </Typography>
                     <Typography variant="body2" gutterBottom>
                         Name: {userProfile?.name}
@@ -365,6 +361,7 @@ const DashboardPage: React.FC = () => {
                         Email: {userProfile?.email}
                     </Typography>
                     <Button
+                        data-testid="addCategoryButton"
                         variant="contained"
                         color="secondary"
                         onClick={handleAddModal}
@@ -373,46 +370,37 @@ const DashboardPage: React.FC = () => {
                         Add Category
                     </Button>
                     <Button
+                        variant="outlined"
+                        color="error"
                         onClick={handleLogout}
-                        style={{ margin: '30px 0' }}
-                        className='bg-danger text-white'
+                        style={{ margin: '20px 0' }}
                     >
                         Logout
                     </Button>
                 </Paper>
             </Container>
+            
 
-            <Button
-                variant="contained"
-                className='mb-3'
-                color={!show ? "success" : "warning"}
-                size="small"
-                style={{ marginLeft: 10 }}
-                onClick={() => !show ? setShow(true) : setShow(false)}
-            >
-                {!show ? "Show" : "Hide"}
-            </Button>
-
-            {/* table */}
-            {show ? <div style={{ height: 400, width: '100%' }}>
+            {/* Grid table data */}
+            <div data-testid="categoryTable" style={{ height: 400, width: '100%' }}>
                 {data ? (
-                    <div className="card bg-warning">
-                        <DataGrid
-                            rows={data}
-                            columns={columns}
-                            initialState={{
-                                pagination: {
-                                    paginationModel: { page: 0, pageSize: 5 },
-                                },
-                            }}
-                            style={{ backgroundColor: '#fff' }}
-                            pageSizeOptions={[5, 10]}
-                        />
-                    </div>
+                    <DataGrid
+                        rows={data}
+                        columns={columns}
+                        initialState={{
+                            pagination: {
+                                paginationModel: { page: 0, pageSize: 5 },
+                            },
+                        }}
+                        style={{ backgroundColor: '#fff' }}
+                        pageSizeOptions={[5, 10]}
+                    />
                 ) : (
                     <div>No data available.</div>
                 )}
-            </div> : ""}
+            </div>
+
+            
         </>
     );
 };

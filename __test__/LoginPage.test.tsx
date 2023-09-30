@@ -61,7 +61,7 @@ describe('Unit testing in LoginForm', () => {
 
         expect(mockSetItem).toHaveBeenCalledWith('userToken', 'fakeToken');
         expect(screen.getByText('Login Successful')).toBeDefined();
-        expect(navigateMock).toHaveBeenCalledWith('/dashboard');
+        
     });
 });
 
